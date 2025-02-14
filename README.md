@@ -85,3 +85,32 @@
 3. **Содержание.** Файл c csv хранить в GIT нельзя! Добавляйте либо ссылку, либо срез данных.
 
 4. **Корректность.** Данные нельзя редактировать, файл нельзя обрезать. Результаты аналитики и SQL скрипта должны быть правильными.
+
+### Использование:
+Клонируем себе репозиторий. Скачиваем файлы с данными по [ссылке](https://disk.yandex.ru/d/TXZjQ6bbuWCo_g). Файлы необходимо поместить в папку data. Dag находится уже в папке dag. После запуска Dockera собираем Dockerfile командой "docker build -t airflow-with-java .", после собираем docker-compose командой "docker-compose up". После успешного запуска необходимо открыть DBeaver или pgAdmin 4, создать подключение к БД.
+Данные для подключения:
+
+	Хост - localhost
+	Порт - 5432
+	База данных - test
+	Пользователь - user
+	Пароль - password
+
+Открыть готовый скрипт "Script_create_tables.sql" для создания таблиц и запустить Далее открываем [Airflow](http://localhost:8080), будет 2 dag файла, первым запускаем "01_init_connections.py", он производит автоматическую настройку подключений для PostgreSQL. Вторым запускаем "main.py". Будет выполнено все необходимое по заданию.
+
+Структура файлов и папок на начальном этапе у вас должна получиться:
+
+	project/
+	├── dags/
+	│   ├── 01_init_connections.py
+	│   ├── connections.json
+	│   └── main.py
+	├── data/
+	│   ├── airlines.csv
+	│   ├── airports.csv
+	│   └── flights_pak.csv
+	├── Dockerfile-airflow
+	├── docker-compose.yml
+	├── README.md
+	├── requirements.txt
+	└── Script_create_tables.sql
